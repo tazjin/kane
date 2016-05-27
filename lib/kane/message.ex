@@ -52,8 +52,8 @@ defmodule Kane.Message do
         Enum.map(messages, fn(%__MODULE__{data: d, attributes: a}) ->
           %{
             "data" => encode_body(d),
-            "attributes" => Enum.reduce(a, %{}, fn({key, val}, map)->
-              Map.put(map, key, val)
+            "attributes" => Enum.map(a, fn({key, val}) ->
+              %{"key" => key, "value" => val}
             end)
           }
         end)

@@ -25,14 +25,17 @@ defmodule Kane.MessageTest do
     message = %Message{data: %{"hello": "world"}, attributes: %{"random" => "attr"}}
 
     data = %{"hello": "world"} |> Poison.encode! |> Base.encode64
-    assert %{
+    expected =  %{
       "messages" => [%{
-        "data" => ^data,
-        "attributes" => %{
-          "random" => "attr"
-        }
+        "data" => data,
+        "attributes" =>
+          [%{
+              "key" => "random",
+              "value" => "attr"
+       }]
       }]
-    } = Message.data(message)
+    }
+    assert(expected == Message.data(message))
   end
 
   test "publishing a message", %{bypass: bypass} do
