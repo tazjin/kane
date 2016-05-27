@@ -29,10 +29,9 @@ defmodule Kane.MessageTest do
       "messages" => [%{
         "data" => data,
         "attributes" =>
-          [%{
-              "key" => "random",
-              "value" => "attr"
-       }]
+          %{
+            "random" => "attr"
+          }
       }]
     }
     assert(expected == Message.data(message))
